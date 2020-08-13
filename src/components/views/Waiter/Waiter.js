@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Waiter.module.scss';
+import { Link } from 'react-router-dom';
 
 function Waiter() {
   return (
@@ -7,6 +8,8 @@ function Waiter() {
       <h2>
         Waiter view    
       </h2>
+      <Link to='/waiter/order/new'>waiterOrderNew</Link>
+      <Link to='/waiter/order/:id'>waiterOrderId</Link>
     </div>
   );
 }
