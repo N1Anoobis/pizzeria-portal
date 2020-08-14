@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Login.module.scss';
 
-function Login() {
+const Login = () => {
   return (
     <div className={style.component}>
       <h2>
@@ -9,6 +9,6 @@ function Login() {
       </h2>
     </div>
   );
-}
+};
 
 export default Login;

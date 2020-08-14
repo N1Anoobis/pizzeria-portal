@@ -13,7 +13,7 @@ import tablesBookingNew from './components/views/tablesBookingNew/tablesBookingN
 import tablesEventsNew from './components/views/tablesEventsNew/tablesEventsNew';
 import tablesEventsID from './components/views/tablesEventsID/tablesEventsID';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter basename={'/panel'}>
       <MainLayout >
@@ -33,6 +33,6 @@ function App() {
       </MainLayout>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

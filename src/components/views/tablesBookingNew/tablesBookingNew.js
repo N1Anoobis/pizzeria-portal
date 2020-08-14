@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './tablesBookingNew.module.scss';
 
-function tablesBookingNew() {
+const tablesBookingNew = () => {
   return (
     <div className={style.component}>
       <h2>
@@ -9,6 +9,6 @@ function tablesBookingNew() {
       </h2>
     </div>
   );
-}
+};
 
 export default tablesBookingNew;

@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Homepage.module.scss';
 
-function Homepage() {
+const Homepage = () => {
   return (
     <div className={style.component}>
       <h2>
@@ -9,6 +9,6 @@ function Homepage() {
       </h2>
     </div>
   );
-}
+};
 
 export default Homepage;

@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './waiterOrderNew.module.scss';
 
-function waiterOrderNew() {
+const waiterOrderNew = () => {
   return (
     <div className={style.component}>
       <h2>
@@ -9,6 +9,6 @@ function waiterOrderNew() {
       </h2>
     </div>
   );
-}
+};
 
 export default waiterOrderNew;
