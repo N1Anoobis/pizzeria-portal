@@ -8,8 +8,8 @@ const Waiter = () => {
       <h2>
         Waiter view    
       </h2>
-      <Link to='/waiter/order/new'>waiterOrderNew</Link><span> | </span>
-      <Link to='/waiter/order/:id'>waiterOrderId</Link>
+      <Link to='Waiter/order/new'>WaiterOrderNew</Link>
+      <Link to='/Waiter/order/:id'>WaiterOrderId</Link>
     </div>
   );
 };
