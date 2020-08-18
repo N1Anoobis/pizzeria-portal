@@ -5,6 +5,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +21,7 @@ export default function Homepage() {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea component={NavLink} to={`${process.env.PUBLIC_URL}/login`}>
         <CardMedia
           component="img"
           alt="welcome"
