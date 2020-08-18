@@ -24,7 +24,7 @@ const renderActions = status => {
       return (
         <>
           <Button>thinking</Button>
-          <Button>new order</Button>
+          <Button component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/new`}>new order</Button>
         </>
       );
     case 'thinking':

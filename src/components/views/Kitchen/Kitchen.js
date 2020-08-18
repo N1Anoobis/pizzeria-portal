@@ -24,8 +24,8 @@ const Kitchen = () => (
       <TableHead>
         <TableRow>
           <TableCell>Queue</TableCell>
-          <TableCell>Table number</TableCell>
           <TableCell>Order number</TableCell>
+          <TableCell>Table number</TableCell>
           <TableCell>Meals</TableCell>
           <TableCell>Amount</TableCell>
           <TableCell>Complited</TableCell>
