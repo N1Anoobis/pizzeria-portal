@@ -37,9 +37,9 @@ const App = () => {
               <Route exact path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
               <Route exact path={process.env.PUBLIC_URL + '/tables'} component={Tables} />
               <Route exact path={process.env.PUBLIC_URL + '/tables/booking/:id'} component={TablesBookingID} />
-              <Route exact path={process.env.PUBLIC_URL + '/tables/booking/new'} component={TablesBookingNew} />
+              <Route exact path={process.env.PUBLIC_URL + '/tables/booking/new/order'} component={TablesBookingNew} />
               <Route exact path={process.env.PUBLIC_URL + '/tables/events/:id'} component={TablesEventsID} />
-              <Route exact path={process.env.PUBLIC_URL + '/tables/events/new'} component={TablesEventsNew} />
+              <Route exact path={process.env.PUBLIC_URL + '/tables/events/new/order'} component={TablesEventsNew} />
               <Route exact path={process.env.PUBLIC_URL + '/waiter/order/new'} component={WaiterOrderNew} />
               <Route exact path={process.env.PUBLIC_URL + '/waiter/order/:id'} component={WaiterOrderID} />
             </Switch>
