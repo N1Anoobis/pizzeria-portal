@@ -9,7 +9,7 @@ import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
-    // maxWidth: 645,
+    marginTop: '20px',
   },
   media: {
     height:440,

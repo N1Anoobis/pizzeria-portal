@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const demoContent = {
   date: '2020-08-17T12:00',
@@ -66,34 +67,36 @@ const Tables = () => {
         <Button className={styles.button} component={NavLink} exact to={process.env.PUBLIC_URL + '/tables/booking/new/order'}>New Reservation</Button> <span></span>
         <Button className={styles.button} component={NavLink} exact to={process.env.PUBLIC_URL + '/tables/events/new/order'}>New Event</Button>
       </form>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Time</TableCell>
-            <TableCell>Table 1</TableCell>
-            <TableCell>Table 2</TableCell>
-            <TableCell>Table 3</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {schedul.map(row => (
-            <TableRow key={row.time}>
-              <TableCell>
-                {row.time}
-              </TableCell>
-              <TableCell>
-                {renderActions(row.table1, row.id1)}
-              </TableCell>
-              <TableCell>
-                {renderActions(row.table2, row.id2)}
-              </TableCell>
-              <TableCell>
-                {renderActions(row.table3, row.id3)}
-              </TableCell>
+      <Paper >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Time</TableCell>
+              <TableCell>Table 1</TableCell>
+              <TableCell>Table 2</TableCell>
+              <TableCell>Table 3</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {schedul.map(row => (
+              <TableRow key={row.time}>
+                <TableCell>
+                  {row.time}
+                </TableCell>
+                <TableCell>
+                  {renderActions(row.table1, row.id1)}
+                </TableCell>
+                <TableCell>
+                  {renderActions(row.table2, row.id2)}
+                </TableCell>
+                <TableCell>
+                  {renderActions(row.table3, row.id3)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
     </div>
   );
 };
