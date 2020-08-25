@@ -14,8 +14,8 @@ const demoContent = {
 };
 
 const schedul = [
-  { time: '12:00', table1: 'reservation', id1: 'smith 2 people', table2: '', id2: '', table3: '', id3: '' },
-  { time: '12:30', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
+  { time: '12:00', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
+  { time: '12:30', table1: 'reservation', id1: 'smith 2 people', table2: '', id2: '', table3: '', id3: '' },
   { time: '13:00', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
   { time: '13:30', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
   { time: '14:00', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
@@ -29,9 +29,9 @@ const schedul = [
   { time: '18:00', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
   { time: '18:30', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
   { time: '19:00', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
-  { time: '19:30', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
+  { time: '19:30', table1: 'reservation', id1: 'nowak 5 people', table2: '', id2: '', table3: '', id3: '' },
   { time: '20:00', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
-  { time: '20:30', table1: 'reservation', id1: 'nowak 5 people', table2: '', id2: '', table3: '', id3: '' },
+  { time: '20:30', table1: '', id1: '', table2: '', id2: '', table3: '', id3: '' },
 ];
 
 const renderActions = (table, id) => {
@@ -62,8 +62,8 @@ const Tables = () => {
           InputLabelProps={{
             shrink: true,
           }}
-        />
-        <Button className={styles.button} component={NavLink} exact to={process.env.PUBLIC_URL + '/tables/booking/new/order'}>New Reservation</Button>
+        /> <span></span>
+        <Button className={styles.button} component={NavLink} exact to={process.env.PUBLIC_URL + '/tables/booking/new/order'}>New Reservation</Button> <span></span>
         <Button className={styles.button} component={NavLink} exact to={process.env.PUBLIC_URL + '/tables/events/new/order'}>New Event</Button>
       </form>
       <Table>
