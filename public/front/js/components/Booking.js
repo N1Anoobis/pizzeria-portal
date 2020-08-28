@@ -215,17 +215,17 @@ class Booking {
     console.log(typeof todayBookings[0]);
 
     Object.keys(todayBookings)
-      .sort()
+      .sort();
 
-      .forEach(function (v) {
+      // .forEach(function (v) {
 
 
-        if (todayBookings[v].contains(tableNr)) {
+      //   if (todayBookings[v].contains(tableNr)) {
 
-          console.log(v);
-        }
+      //     console.log(v);
+      //   }
 
-      });
+      // });
 
 
 
