@@ -13,19 +13,20 @@ class Waiter extends React.Component {
   static propTypes = {
     fetchTables: PropTypes.func,
     tables: PropTypes.any,
-    changeStatus: PropTypes.func,
+    updateStatus: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
     }),
   }
-
+  
   componentDidMount(){
     const { fetchTables} = this.props;
     fetchTables();
   }
 
-  renderActions(status){
+  renderActions(status, id){
+    const { updateStatus } = this.props;
     switch (status) {
       case 'free':
         return (
@@ -36,23 +37,23 @@ class Waiter extends React.Component {
         );
       case 'thinking':
         return (
-          <Button>new order</Button>
+          <Button onClick={() => updateStatus('dziala',id)}>new order</Button>
         );
       case 'ordered':
         return (
-          <Button>prepared</Button>
+          <Button onClick={() => updateStatus(status,id)}>prepared</Button>
         );
       case 'prepared':
         return (
-          <Button>delivered</Button>
+          <Button onClick={() => updateStatus(status,id)}>delivered</Button>
         );
       case 'delivered':
         return (
-          <Button>paid</Button>
+          <Button onClick={() => updateStatus(status,id)}>paid</Button>
         );
       case 'paid':
         return (
-          <Button>free</Button>
+          <Button onClick={() => updateStatus(status,id)}>free</Button>
         );
       default:
         return null;
@@ -60,8 +61,8 @@ class Waiter extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, tables, changeStatus } = this.props;
-    
+    const { loading: { active, error }, tables} = this.props;
+    console.log(tables);
     if(active || !tables.length){
       return (
         <Paper className={styles.component}>
@@ -103,7 +104,7 @@ class Waiter extends React.Component {
                       </Button>
                     )}
                   </TableCell>
-                  <TableCell onClick={changeStatus()}>
+                  <TableCell>
                     {this.renderActions(row.status)}
                   </TableCell>
                 </TableRow>
