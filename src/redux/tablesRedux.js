@@ -14,10 +14,14 @@ const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 
+const CHANGE_STATUS = createActionName('CHANGE_STATUS');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+
+export const changeStatus = payload => ({ payload, type: CHANGE_STATUS });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -28,6 +32,21 @@ export const fetchFromAPI = () => {
       .get(`${api.url}/${api.tables}`)
       .then(res => {
         dispatch(fetchSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const changeTableStatusAPI = () => {
+  return (dispatch, getState) => {
+    dispatch(changeStatus());
+
+    Axios
+      .get(`${api.url}/${api.tables}`)
+      .then(res => {
+        dispatch(changeStatus(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));

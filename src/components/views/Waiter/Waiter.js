@@ -13,6 +13,7 @@ class Waiter extends React.Component {
   static propTypes = {
     fetchTables: PropTypes.func,
     tables: PropTypes.any,
+    changeStatus: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
@@ -20,7 +21,7 @@ class Waiter extends React.Component {
   }
 
   componentDidMount(){
-    const { fetchTables } = this.props;
+    const { fetchTables} = this.props;
     fetchTables();
   }
 
@@ -59,7 +60,7 @@ class Waiter extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, tables } = this.props;
+    const { loading: { active, error }, tables, changeStatus } = this.props;
     
     if(active || !tables.length){
       return (
@@ -102,7 +103,7 @@ class Waiter extends React.Component {
                       </Button>
                     )}
                   </TableCell>
-                  <TableCell>
+                  <TableCell onClick={changeStatus()}>
                     {this.renderActions(row.status)}
                   </TableCell>
                 </TableRow>
