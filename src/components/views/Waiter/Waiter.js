@@ -14,6 +14,7 @@ class Waiter extends React.Component {
   static propTypes = {
     fetchTables: PropTypes.func,
     tables: PropTypes.any,
+    updateTableNr: PropTypes.func,
     updateStatus: PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
@@ -28,19 +29,20 @@ class Waiter extends React.Component {
 
   renderActions( id, status){
     const { updateStatus } = this.props;
+    const { updateTableNr } = this.props;
     switch (status) {
       case 'free':
         return (
           <>
             <Button onClick={() => updateStatus(id, 'thinking')}>thinking</Button>
-            <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`}>new order</Button>
+            <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))} >new order</Button>
           </>
         );
       case 'thinking':
         return (
         //   <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
         // );
-          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`}>new order</Button>
+          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))}>new order</Button>
         );
       case 'ordered':
         return (

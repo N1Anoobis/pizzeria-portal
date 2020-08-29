@@ -1,92 +1,89 @@
-// import React from 'react';
-// import style from './WaiterOrderNew.module.scss';
-
-// const WaiterOrderNew = () => {
-//   return (
-//     <div className={style.component}>
-//       <h2>
-//       WaiterOrderNew view
-//       </h2>
-//     </div>
-//   );
-// };
-
-// export default WaiterOrderNew;
-
 import React from 'react';
 import styles from './WaiterOrderNew.module.scss';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import PropTypes from 'prop-types';
 
-const demoMenu = [
-  { name: 'pizza margheritta', price: '5' },
-  { name: 'ravioli anatra', price: '7' },
-];
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 class WaiterOrderNew extends React.Component {
   static propTypes = {
     fetchMenu: PropTypes.func,
     product: PropTypes.any,
-    
-   
+    tableId: PropTypes.any,
+    tableNr: PropTypes.any,
+    currentOrder: PropTypes.any,
+    currentOrderNr: PropTypes.any,
+    fetchcurrentOrder: PropTypes.any,
+    fetchcurrentOrderNr: PropTypes.any,
   }
-  componentDidMount(){
-    const { fetchMenu} = this.props;
+  componentDidMount() {
+    const { fetchMenu } = this.props;
     fetchMenu();
   }
 
   render() {
-    const { product} = this.props;
-    console.log(product);
+    const { product } = this.props;
+    const { tableNr } = this.props;
+    const { fetchcurrentOrder } = this.props;
+    const { currentOrder } = this.props;
+    const { fetchcurrentOrderNr } = this.props;
+    const { currentOrderNr } = this.props;
+    const menuData = Array.from(product);
+    console.log( currentOrderNr);
+
     return (
-      <Paper className={styles.component}>
-        <h2>New Order</h2>
-        <div className={styles.order}>
-          <div className={styles.table}>
-            <div className={styles.body}>
-              {demoMenu.map(row => (
-                <div className={styles.menuRow} key={row.name}>
-                  <div className={styles.position}>
-                    {row.name}
-                    {' '}
-                    {row.price}$
-                  </div>
-                  <Button className={styles.optionButtons}>edit</Button>
-                  <Button className={styles.optionButtons}>delete</Button>
-                </div>
-              ))}
-              <Button className={styles.addInMenu}>+add</Button>
-            </div>
-          </div>
-          <div className={styles.options}>
-            <div className={styles.tableOption}>
-              <p>Table</p>
-              <Select
-                id="select-table"
-                value=""
-              >
-                <MenuItem>1</MenuItem>
-                <MenuItem>2</MenuItem>
-                <MenuItem>3</MenuItem>
-                <MenuItem>4</MenuItem>
-                <MenuItem>5</MenuItem>
-                <MenuItem>6</MenuItem>
-                <MenuItem>7</MenuItem>
-              </Select>
-            </div>
-            <div className={styles.cost}>
-              <p>Cost</p>
-            12$
-            </div>
-          </div>
-        </div>
-        <div className={styles.foot}>
-          <Button className={styles.addOrder}>Submit</Button>
-        </div>
-      </Paper>
+      <>
+        <Paper className={styles.component}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Table nr: {typeof tableNr === 'string' ? tableNr : null}</TableCell>
+                <TableCell>Meal chosen</TableCell>
+                <TableCell>Number of Meals</TableCell>
+                <TableCell>Price</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow >
+                <Select
+                  id="select-table"
+                  value=""  >
+                  {menuData.map(row => (
+                    <MenuItem key={row.id} onClick={() => fetchcurrentOrder(row.name)}>
+                      {row.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <TableCell>
+                  {typeof currentOrder === 'string' ? currentOrder : null}
+                </TableCell>
+                <TableCell>
+                  <Select>
+                    <MenuItem onClick={() => fetchcurrentOrderNr('1')}>1</MenuItem>
+                    <MenuItem onClick={() => fetchcurrentOrderNr('2')}>2</MenuItem>
+                    <MenuItem onClick={() => fetchcurrentOrderNr('3')}>3</MenuItem>
+                    <MenuItem onClick={() => fetchcurrentOrderNr('4')}>4</MenuItem>
+                  </Select>
+                  <span>    </span>
+                  {typeof currentOrderNr === 'string' ? currentOrderNr : null}
+                </TableCell>
+                <TableCell>
+                  {menuData.map(item => item.name === currentOrder 
+                    ? item.price * currentOrderNr 
+                    : null)}
+                </TableCell>  
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Paper>
+      </>
     );
   }
 }

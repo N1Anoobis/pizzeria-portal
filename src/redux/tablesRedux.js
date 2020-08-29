@@ -5,6 +5,9 @@ import { api } from '../settings';
 export const getAll = ({ tables }) => tables.data;
 export const getLoadingState = ({ tables }) => tables.loading;
 export const getMenu = ({ tables }) => tables.product;
+export const currentTableNr = ({ tables }) => tables.currentTableNr;
+export const currentOrder = ({ tables }) => tables.order;
+export const currentOrderNr = ({ tables }) => tables.nr;
 
 /* action name creator */
 const reducerName = 'tables';
@@ -19,6 +22,12 @@ const UPDATE_STATUS = createActionName('UPDATE_STATUS');
 
 const GET_MENU = createActionName('GET_MENU');
 
+const GET_TABLENR = createActionName('GET_TABLENR');
+
+const GET_ORDER = createActionName('GET_ORDER');
+
+const GET_ORDERNR = createActionName('GET_ORDERNR');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
@@ -27,6 +36,12 @@ export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const updateStatus = (id, status) => ({ id, status, type: UPDATE_STATUS });
 
 export const fetchMenu = payload => ({ payload, type: GET_MENU });
+
+export const currentTableNum = payload => ({ payload, type: GET_TABLENR });
+
+export const currenttOrder = payload => ({ payload, type: GET_ORDER });
+
+export const currenttOrderNr = payload => ({ payload, type: GET_ORDERNR });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -67,6 +82,51 @@ export const updateAPI = (id, status) => {
       .get(`${api.url}/${api.tables}`)
       .then(() => {
         dispatch(updateStatus(id, status));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const updateTableNr = (id) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.tables}`)
+      .then(res => {
+        dispatch(currentTableNum(id));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const currentOrderAPI = (order) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.order}`)
+      .then(res => {
+        dispatch(currenttOrder(order));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const currentOrderAPINr = (orderNr) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.order}`)
+      .then(res => {
+        dispatch(currenttOrderNr(orderNr));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
@@ -128,6 +188,39 @@ export default function reducer(statePart = [], action = {}) {
         product: action.payload,
       };
     }
+    case GET_TABLENR: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        currentTableNr: action.payload,
+      };
+    }
+
+    case GET_ORDER: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        order: action.payload,
+      };
+    }
+
+    case GET_ORDERNR: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        nr: action.payload,
+      };
+    }
+
     default:
       return statePart;
   }

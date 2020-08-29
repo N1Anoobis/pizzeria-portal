@@ -8,6 +8,9 @@ import tablesReducer from './tablesRedux';
 const initialState = {
   
   tables: {
+    order:{},
+    nr:{},
+    currentTableNr:{},
     product:{},
     data: {},
     loading: {
