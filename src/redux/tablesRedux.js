@@ -22,7 +22,7 @@ export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
-export const updateStatus = (status,id) => ({ id, status, type: UPDATE_STATUS });
+export const updateStatus = (id, status) => ({ id, status, type: UPDATE_STATUS });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -40,13 +40,13 @@ export const fetchFromAPI = () => {
   };
 };
 
-export const updateAPI = (status,id) => {
+export const updateAPI = (id, status) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
 
     Axios
       .get(`${api.url}/${api.tables}`)
-      .then(res => {
+      .then(() => {
         dispatch(updateStatus(id, status));
       })
       .catch(err => {
