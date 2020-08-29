@@ -38,7 +38,9 @@ class Waiter extends React.Component {
         );
       case 'thinking':
         return (
-          <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+        //   <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+        // );
+          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`}>new order</Button>
         );
       case 'ordered':
         return (
@@ -63,7 +65,7 @@ class Waiter extends React.Component {
 
   render() {
     const { loading: { active, error }, tables} = this.props;
-    console.log(tables);
+    // console.log(tables);
     if(active || !tables.length){
       return (
         <Paper className={styles.component}>

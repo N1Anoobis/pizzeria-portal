@@ -4,7 +4,7 @@ export const api = {
   url: '//' + window.location.hostname + (window.location.hostname === 'localhost' ? ':3131/api' : ''),
   // tables: 'tables-settings',
   tables: 'tables',
-  products: 'products',
+  product: 'product',
   order: 'order',
   booking: 'booking',
   event: 'event',

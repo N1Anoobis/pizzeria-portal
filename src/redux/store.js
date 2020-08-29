@@ -6,7 +6,9 @@ import tablesReducer from './tablesRedux';
 
 // define initial state and shallow-merge initial data
 const initialState = {
+  
   tables: {
+    product:{},
     data: {},
     loading: {
       active: false,
