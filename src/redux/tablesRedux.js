@@ -8,6 +8,8 @@ export const getMenu = ({ tables }) => tables.product;
 export const currentTableNr = ({ tables }) => tables.currentTableNr;
 export const currentOrder = ({ tables }) => tables.order;
 export const currentOrderNr = ({ tables }) => tables.nr;
+export const placeNewOrder = ({ tables }) => tables.newOrder;
+export const getKitchen = ({ tables }) => tables.kitchen;
 
 /* action name creator */
 const reducerName = 'tables';
@@ -28,6 +30,10 @@ const GET_ORDER = createActionName('GET_ORDER');
 
 const GET_ORDERNR = createActionName('GET_ORDERNR');
 
+const PLACE_ORDER = createActionName('PLACE_ORDER');
+
+const GET_KITCHEN = createActionName('GET_KITCHEN');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
@@ -42,6 +48,10 @@ export const currentTableNum = payload => ({ payload, type: GET_TABLENR });
 export const currenttOrder = payload => ({ payload, type: GET_ORDER });
 
 export const currenttOrderNr = payload => ({ payload, type: GET_ORDERNR });
+
+export const placeNeewOrder = (tableNr, currentOrder, currentOrderNr) => ({ tableNr, currentOrder, currentOrderNr, type: PLACE_ORDER });
+
+export const fetchKitchen = payload => ({ payload, type: GET_KITCHEN });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -133,6 +143,50 @@ export const currentOrderAPINr = (orderNr) => {
       });
   };
 };
+export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.order}`)
+      .then(() => {
+        dispatch(placeNeewOrder(tableNr, currentOrder, currentOrderNr));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+
+    // Axios.post('//localhost:3131/db/newOrd', {
+    //   firstName: 'Fred',
+    //   lastName: 'Flintstone',
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+
+  };
+};
+
+export const fetchKitchenAPI = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.newOrd}`)
+      .then(res => {
+
+        dispatch(fetchKitchen(res.data));
+
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
 
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
@@ -173,7 +227,7 @@ export default function reducer(statePart = [], action = {}) {
           error: false,
         },
         data: statePart.data.map(currentOrder => currentOrder.id === action.id ?
-          {...currentOrder, status: action.status} :
+          { ...currentOrder, status: action.status } :
           currentOrder
         ),
       };
@@ -218,6 +272,32 @@ export default function reducer(statePart = [], action = {}) {
           error: false,
         },
         nr: action.payload,
+      };
+    }
+
+    case PLACE_ORDER: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        newOrder: {
+          tableNr: action.tableNr,
+          currentOrder: action.currentOrder,
+          currentOrderNr: action.currentOrderNr,
+        },
+      };
+    }
+
+    case GET_KITCHEN: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        kitchen: action.payload,
       };
     }
 

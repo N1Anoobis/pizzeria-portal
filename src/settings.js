@@ -3,6 +3,8 @@ export const api = {
   tables: 'tables',
   product: 'product',
   order: 'order',
+  new: 'new',
+  newOrd: 'newOrd',
   booking: 'booking',
   event: 'event',
   waiter: 'waiter',

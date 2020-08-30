@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './WaiterOrderNew.module.scss';
 import Paper from '@material-ui/core/Paper';
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import PropTypes from 'prop-types';
@@ -22,11 +22,50 @@ class WaiterOrderNew extends React.Component {
     currentOrderNr: PropTypes.any,
     fetchcurrentOrder: PropTypes.any,
     fetchcurrentOrderNr: PropTypes.any,
+    placeOrder: PropTypes.func,
   }
   componentDidMount() {
     const { fetchMenu } = this.props;
     fetchMenu();
   }
+
+  // renderActions( id, status){
+  //   const { updateStatus } = this.props;
+  //   const { updateTableNr } = this.props;
+  //   switch (status) {
+  //     case 'free':
+  //       return (
+  //         <>
+  //           <Button onClick={() => updateStatus(id, 'thinking')}>thinking</Button>
+  //           <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))} >new order</Button>
+  //         </>
+  //       );
+  //     case 'thinking':
+  //       return (
+  //       //   <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+  //       // );
+  //         <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))}>new order</Button>
+  //       );
+  //     case 'ordered':
+  //       return (
+  //         <Button onClick={() => updateStatus(id, 'prepared')}>prepared</Button>
+  //       );
+  //     case 'prepared':
+  //       return (
+  //         <Button onClick={() => updateStatus(id, 'delivered')}>delivered</Button>
+  //       );
+  //     case 'delivered':
+  //       return (
+  //         <Button onClick={() => updateStatus(id, 'paid')}>paid</Button>
+  //       );
+  //     case 'paid':
+  //       return (
+  //         <Button onClick={() => updateStatus(id, 'free')}>free</Button>
+  //       );
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   render() {
     const { product } = this.props;
@@ -35,8 +74,11 @@ class WaiterOrderNew extends React.Component {
     const { currentOrder } = this.props;
     const { fetchcurrentOrderNr } = this.props;
     const { currentOrderNr } = this.props;
+
+    const { placeOrder } = this.props;
+
     const menuData = Array.from(product);
-    console.log( currentOrderNr);
+ 
 
     return (
       <>
@@ -52,15 +94,18 @@ class WaiterOrderNew extends React.Component {
             </TableHead>
             <TableBody>
               <TableRow >
-                <Select
-                  id="select-table"
-                  value=""  >
-                  {menuData.map(row => (
-                    <MenuItem key={row.id} onClick={() => fetchcurrentOrder(row.name)}>
-                      {row.name}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <TableCell>
+                  <Select
+                    id="select-table"
+                    value=""  >
+                    <span>    </span>
+                    {menuData.map(row => (
+                      <MenuItem key={row.id} onClick={() => fetchcurrentOrder(row.name)}>
+                        {row.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </TableCell>
                 <TableCell>
                   {typeof currentOrder === 'string' ? currentOrder : null}
                 </TableCell>
@@ -75,13 +120,14 @@ class WaiterOrderNew extends React.Component {
                   {typeof currentOrderNr === 'string' ? currentOrderNr : null}
                 </TableCell>
                 <TableCell>
-                  {menuData.map(item => item.name === currentOrder 
-                    ? item.price * currentOrderNr 
+                  {menuData.map(item => item.name === currentOrder
+                    ? (isNaN(item.price * currentOrderNr) ? null : item.price * currentOrderNr)
                     : null)}
-                </TableCell>  
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
+          <Button onClick={() => placeOrder(tableNr, currentOrder, currentOrderNr)}>Place Order</Button>
         </Paper>
       </>
     );

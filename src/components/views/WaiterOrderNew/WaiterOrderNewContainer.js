@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import WaiterOrderNew from './WaiterOrderNew';
-import { getMenu, fetchMenuAPI, currentTableNr, currentOrderAPI, currentOrder, currentOrderNr, currentOrderAPINr} from '../../../redux/tablesRedux';
+import { getMenu, fetchMenuAPI, currentTableNr, currentOrderAPI, currentOrder, currentOrderNr, currentOrderAPINr, placeOrderApi} from '../../../redux/tablesRedux';
 
 const mapStateToProps = (state) => ({
   product: getMenu(state),
@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMenu: () => dispatch(fetchMenuAPI()),
   fetchcurrentOrder: (order) => dispatch(currentOrderAPI(order)),
   fetchcurrentOrderNr: (order) => dispatch(currentOrderAPINr(order)),
+  placeOrder: (tableNr, currentOrder, currentOrderNr) => dispatch(placeOrderApi(tableNr, currentOrder, currentOrderNr)),
   
 });
 

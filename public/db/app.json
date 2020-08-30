@@ -217,6 +217,14 @@
     }
   ],
   "order": [],
+  "newOrd": [
+      { "id": 1, "order": 453, "meals": "pizza", "amount": 2, "tableNumber": 23 },
+      { "id": 2, "order": 472, "meals": "soup", "amount": 4, "tableNumber": 73 },
+      { "id": 3, "order": 123, "meals": "kebab", "amount": 1, "tableNumber": 14 },
+      { "id": 4, "order": 234, "meals": "beer", "amount": 2, "tableNumber": 1 },
+      { "id": 5, "order": 345, "meals": "gulash", "amount": 3, "tableNumber": 77 },
+      { "id": 6, "order": 456, "meals": "steak", "amount": 2, "tableNumber": 8 }
+    ],
   "event": [{
       "id": 1,
       "date": "2020-04-15",
@@ -269,21 +277,20 @@
     }
   ],
   "booking": [{
-"id": 1,
-"date": "2020-04-15",
-"hour": "18:00",
-"table": 1,
-"duration": 3,
-"ppl": 4,
-"starters": ["water"]
-}],
+    "id": 1,
+    "date": "2020-04-15",
+    "hour": "18:00",
+    "table": 1,
+    "duration": 3,
+    "ppl": 4,
+    "starters": ["water"]
+  }],
 
-  "tables": [
-    {
+  "tables": [{
       "id": "1",
       "status": "free",
-       "order": null
-      },
+      "order": null
+    },
     {
       "id": "2",
       "status": "thinking",
@@ -292,7 +299,8 @@
     {
       "id": "3",
       "status": "ordered",
-      "order": 123},
+      "order": 123
+    },
     {
       "id": "4",
       "status": "prepared",

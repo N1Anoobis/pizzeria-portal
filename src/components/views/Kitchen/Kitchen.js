@@ -9,62 +9,71 @@ import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import { NavLink } from 'react-router-dom';
 import styles from './Kitchen.module.scss';
+import PropTypes from 'prop-types';
 
-const demoContent = [
-  { id: '1', order: 453, meals: 'pizza', amount: 2, tableNumber: 23 },
-  { id: '2', order: 472, meals: 'soup', amount: 4, tableNumber: 73 },
-  { id: '3', order: 123, meals: 'kebab', amount: 1, tableNumber: 14 },
-  { id: '4', order: 234, meals: 'beer', amount: 2, tableNumber: 1 },
-  { id: '5', order: 345, meals: 'gulash', amount: 3, tableNumber: 77 },
-  { id: '6', order: 456, meals: 'steak', amount: 2, tableNumber: 8 },
-];
 
-const Kitchen = () => (
-  <div className={styles.component}>
-    <Paper >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Queue</TableCell>
-            <TableCell>Order number</TableCell>
-            <TableCell>Table number</TableCell>
-            <TableCell>Meals</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Complited</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {demoContent.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell>
-                {row.order && (
-                  <Button variant="contained" component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
-                    {row.order}
-                  </Button>
-                )}
-              </TableCell>
-              <TableCell>
-                {row.tableNumber}
-              </TableCell>
-              <TableCell>
-                {row.meals}
-              </TableCell>
-              <TableCell>
-                {row.amount}
-              </TableCell>
-              <TableCell>
-                <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
-  </div>
-);
-
+class Kitchen extends React.Component {
+  static propTypes = {
+    fetchOrders: PropTypes.func,
+    newOrder: PropTypes.any,
+    newOrderToAdd: PropTypes.any,
+  }
+  componentDidMount(){
+    const { fetchOrders} = this.props;
+    fetchOrders();
+  }
+  // newOrderToAdd
+  render() {
+    const { newOrder } = this.props;
+    const { newOrderToAdd } = this.props;
+    const menuData = Array.from(newOrder);
+    console.log(newOrderToAdd);
+    return (
+      <div className={styles.component}>
+        <Paper >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Queue</TableCell>
+                <TableCell>Order number</TableCell>
+                <TableCell>Table number</TableCell>
+                <TableCell>Meals</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Complited</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {menuData.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell>
+                    {row.order && (
+                      <Button variant="contained" component={NavLink} to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
+                        {row.order}
+                      </Button>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {row.tableNumber}
+                  </TableCell>
+                  <TableCell>
+                    {row.meals}
+                  </TableCell>
+                  <TableCell>
+                    {row.amount}
+                  </TableCell>
+                  <TableCell>
+                    <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      </div>);
+  }
+}
 export default Kitchen;
 
