@@ -18,16 +18,30 @@ class Kitchen extends React.Component {
     newOrder: PropTypes.any,
     newOrderToAdd: PropTypes.any,
   }
-  componentDidMount(){
-    const { fetchOrders} = this.props;
+  componentDidMount() {
+    const { fetchOrders } = this.props;
     fetchOrders();
   }
-  // newOrderToAdd
+
   render() {
     const { newOrder } = this.props;
-    const { newOrderToAdd } = this.props;
+    let { newOrderToAdd } = this.props;
     const menuData = Array.from(newOrder);
-    console.log(newOrderToAdd);
+    let counter = 7;
+
+
+
+    let newOrderObj = {
+      id: newOrderToAdd.currentOrder ? menuData.length + 1 : null,
+      order: newOrderToAdd.currentOrder ? counter * 4 : null,
+      meals: newOrderToAdd.currentOrder,
+      amount: parseInt(newOrderToAdd.currentOrderNr),
+      tableNumber: parseInt(newOrderToAdd.tableNr),
+    };
+
+    counter++;
+    const finalData = [...menuData, newOrderObj];
+    console.log(finalData);
     return (
       <div className={styles.component}>
         <Paper >
@@ -43,7 +57,7 @@ class Kitchen extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {menuData.map(row => (
+              {finalData.map(row => (
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     {row.id}
@@ -56,16 +70,16 @@ class Kitchen extends React.Component {
                     )}
                   </TableCell>
                   <TableCell>
-                    {row.tableNumber}
+                    {row.tableNumber ? row.tableNumber : null}
                   </TableCell>
                   <TableCell>
                     {row.meals}
                   </TableCell>
                   <TableCell>
-                    {row.amount}
+                    {row.amount ? row.amount : null}
                   </TableCell>
                   <TableCell>
-                    <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />
+                    {row.amount ? <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />: null}
                   </TableCell>
                 </TableRow>
               ))}

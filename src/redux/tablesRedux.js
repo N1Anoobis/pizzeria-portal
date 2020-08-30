@@ -146,7 +146,7 @@ export const currentOrderAPINr = (orderNr) => {
 export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-
+    
     Axios
       .get(`${api.url}/${api.order}`)
       .then(() => {
@@ -155,20 +155,20 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
-
-    // Axios.post('//localhost:3131/db/newOrd', {
-    //   firstName: 'Fred',
-    //   lastName: 'Flintstone',
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
+    
+    Axios.post(`${api.url}/${api.newOrd}`, { 'id': '', 'order': 6, 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
+      .then(function (response) {
+      
+        console.log(response);
+       
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+   
 
   };
+  
 };
 
 export const fetchKitchenAPI = () => {
@@ -176,7 +176,7 @@ export const fetchKitchenAPI = () => {
     dispatch(fetchStarted());
 
     Axios
-      .get(`${api.url}/${api.newOrd}`)
+      .get(`${api.url}/${api.order}`)
       .then(res => {
 
         dispatch(fetchKitchen(res.data));

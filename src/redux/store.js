@@ -10,7 +10,7 @@ const initialState = {
   tables: {
     newOrder: {
       tableNr: {},
-      currentOrder: {},
+      currentOrder: '',
       currentOrderNr: {},
     },
     // new:{},
