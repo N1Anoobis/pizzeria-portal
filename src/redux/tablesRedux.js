@@ -155,8 +155,8 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
-    
-    Axios.post(`${api.url}/${api.newOrd}`, { 'id': '', 'order': Math.floor( Math.random() * ( 999 - 1 + 1 ) + 1 ), 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
+    //tu zmienilem z newOrd na order
+    Axios.post(`${api.url}/${api.order}`, { 'id': '', 'order': Math.floor( Math.random() * ( 999 - 1 + 1 ) + 1 ), 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
       .then(function (response) {
       
         console.log(response);

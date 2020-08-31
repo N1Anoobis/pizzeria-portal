@@ -31,7 +31,7 @@ class Kitchen extends React.Component {
 
 
 
-    let newOrderObj = {
+    const newOrderObj = {
       id: newOrderToAdd.currentOrder ? menuData.length + 1 : null,
       order: newOrderToAdd.currentOrder ? counter * 4 : null,
       meals: newOrderToAdd.currentOrder,
@@ -42,6 +42,7 @@ class Kitchen extends React.Component {
     counter++;
     const finalData = [...menuData, newOrderObj];
     console.log(finalData);
+    finalData.splice(-1,1);
     return (
       <div className={styles.component}>
         <Paper >

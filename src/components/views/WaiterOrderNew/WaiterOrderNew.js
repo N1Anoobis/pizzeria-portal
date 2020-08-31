@@ -27,7 +27,10 @@ class WaiterOrderNew extends React.Component {
   componentDidMount() {
     const { fetchMenu } = this.props;
     fetchMenu();
+
+   
   }
+  
 
   // renderActions( id, status){
   //   const { updateStatus } = this.props;
