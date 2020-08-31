@@ -10,6 +10,7 @@ export const currentOrder = ({ tables }) => tables.order;
 export const currentOrderNr = ({ tables }) => tables.nr;
 export const placeNewOrder = ({ tables }) => tables.newOrder;
 export const getKitchen = ({ tables }) => tables.kitchen;
+export const getChecked = ({ tables }) => tables.checked;
 
 /* action name creator */
 const reducerName = 'tables';
@@ -34,6 +35,8 @@ const PLACE_ORDER = createActionName('PLACE_ORDER');
 
 const GET_KITCHEN = createActionName('GET_KITCHEN');
 
+const GET_CHECKED = createActionName('GET_CHECKED');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
@@ -52,6 +55,8 @@ export const currenttOrderNr = payload => ({ payload, type: GET_ORDERNR });
 export const placeNeewOrder = (tableNr, currentOrder, currentOrderNr) => ({ tableNr, currentOrder, currentOrderNr, type: PLACE_ORDER });
 
 export const fetchKitchen = payload => ({ payload, type: GET_KITCHEN });
+
+export const fetchChecked = payload => ({ payload, type: GET_CHECKED });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -146,7 +151,7 @@ export const currentOrderAPINr = (orderNr) => {
 export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    
+
     Axios
       .get(`${api.url}/${api.order}`)
       .then(() => {
@@ -156,19 +161,19 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
         dispatch(fetchError(err.message || true));
       });
     //tu zmienilem z newOrd na order
-    Axios.post(`${api.url}/${api.order}`, { 'id': '', 'order': Math.floor( Math.random() * ( 999 - 1 + 1 ) + 1 ), 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
+    Axios.post(`${api.url}/${api.order}`, { 'id': '', 'order': Math.floor(Math.random() * (999 - 1 + 1) + 1), 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
       .then(function (response) {
-      
+
         console.log(response);
-       
+
       })
       .catch(function (error) {
         console.log(error);
       });
-   
+
 
   };
-  
+
 };
 
 export const fetchKitchenAPI = () => {
@@ -185,6 +190,9 @@ export const fetchKitchenAPI = () => {
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
+
+
+
   };
 };
 
@@ -193,10 +201,40 @@ export const updateStateKitchen = (order) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
 
+    // console.log(order)
+
     Axios
       .get(`${api.url}/${api.order}`)
       .then(res => {
         dispatch(fetchKitchen(order));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+
+
+    Axios.delete(`${api.url}/${api.order}`)
+
+      .then(function (response) {
+        
+        console.log(response);
+    
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  };
+};
+
+export const updateCheckedState = (bool) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.tables}`)
+      .then(() => {
+        dispatch(fetchChecked(bool));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
@@ -318,6 +356,17 @@ export default function reducer(statePart = [], action = {}) {
           error: false,
         },
         kitchen: action.payload,
+      };
+    }
+
+    case GET_CHECKED: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        checked: action.payload,
       };
     }
 

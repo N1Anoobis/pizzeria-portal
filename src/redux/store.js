@@ -13,7 +13,7 @@ const initialState = {
       currentOrder: '',
       currentOrderNr: {},
     },
-    // new:{},
+    checked:false,
     kitchen:{},
     order: {},
     nr: {},

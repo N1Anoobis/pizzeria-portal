@@ -13,28 +13,40 @@ import PropTypes from 'prop-types';
 
 
 class Kitchen extends React.Component {
+
   static propTypes = {
     fetchOrders: PropTypes.func,
     updateStatusKitchen: PropTypes.func,
     newOrder: PropTypes.any,
     newOrderToAdd: PropTypes.any,
-  }
-  componentDidMount() {
-    const { fetchOrders } = this.props;
-    fetchOrders();
+    checked: PropTypes.any,
+    updateChecked: PropTypes.func,
   }
 
-  //  state={
-  //    checked: 
-  //  }
+
+  componentDidMount() {
+    let { checked } = this.props;
+    // let { updateChecked } = this.props;
+    const { fetchOrders } = this.props;
+    if (checked === false) { fetchOrders(); }
+
+
+    // console.log(this.state.checked);
+    // updateChecked(true);
+    // checked = true;
+  }
+
+
 
   render() {
+   
+
     const { newOrder } = this.props;
     const { updateStatusKitchen } = this.props;
     let { newOrderToAdd } = this.props;
     const menuData = Array.from(newOrder);
     let counter = 7;
-    // console.log(updateStatusKitchen);
+    // console.log(this.state.checked);
 
 
     const newOrderObj = {
@@ -96,7 +108,7 @@ class Kitchen extends React.Component {
                     {row.amount ? row.amount : null}
                   </TableCell>
 
-                 
+
                   <TableCell onChange={e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id)); }}>
                     {row.amount ? <Checkbox defaultunchecked="true" inputProps={{ 'aria-label': 'primary checkbox' }} /> : null}
                   </TableCell>
