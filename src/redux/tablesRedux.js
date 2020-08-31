@@ -188,6 +188,26 @@ export const fetchKitchenAPI = () => {
   };
 };
 
+
+export const updateStateKitchen = (order) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/${api.order}`)
+      .then(res => {
+        dispatch(fetchKitchen(order));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+// updateStateKitchen
+
+
+
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
   switch (action.type) {

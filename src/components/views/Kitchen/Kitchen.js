@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 class Kitchen extends React.Component {
   static propTypes = {
     fetchOrders: PropTypes.func,
+    updateStatusKitchen: PropTypes.func,
     newOrder: PropTypes.any,
     newOrderToAdd: PropTypes.any,
   }
@@ -23,12 +24,17 @@ class Kitchen extends React.Component {
     fetchOrders();
   }
 
+  //  state={
+  //    checked: 
+  //  }
+
   render() {
     const { newOrder } = this.props;
+    const { updateStatusKitchen } = this.props;
     let { newOrderToAdd } = this.props;
     const menuData = Array.from(newOrder);
     let counter = 7;
-
+    // console.log(updateStatusKitchen);
 
 
     const newOrderObj = {
@@ -40,9 +46,19 @@ class Kitchen extends React.Component {
     };
 
     counter++;
-    const finalData = [...menuData, newOrderObj];
+    let finalData = [...menuData, newOrderObj];
     console.log(finalData);
-    finalData.splice(-1,1);
+    finalData.splice(-1, 1);
+
+    // this.handleChange = (id) => {
+
+
+
+    //   finalData = finalData.filter(order => order.id !== id);
+
+    //   updateStatusKitchen(finalData);
+    //   console.log(finalData);
+    // };
     return (
       <div className={styles.component}>
         <Paper >
@@ -79,8 +95,10 @@ class Kitchen extends React.Component {
                   <TableCell>
                     {row.amount ? row.amount : null}
                   </TableCell>
-                  <TableCell>
-                    {row.amount ? <Checkbox inputProps={{ 'aria-label': 'uncontrolled-checkbox' }} />: null}
+
+                 
+                  <TableCell onChange={e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id)); }}>
+                    {row.amount ? <Checkbox defaultunchecked="true" inputProps={{ 'aria-label': 'primary checkbox' }} /> : null}
                   </TableCell>
                 </TableRow>
               ))}
