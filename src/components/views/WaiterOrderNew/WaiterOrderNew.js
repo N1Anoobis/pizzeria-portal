@@ -5,12 +5,13 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import PropTypes from 'prop-types';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 class WaiterOrderNew extends React.Component {
   static propTypes = {
@@ -28,47 +29,8 @@ class WaiterOrderNew extends React.Component {
     const { fetchMenu } = this.props;
     fetchMenu();
 
-   
-  }
-  
 
-  // renderActions( id, status){
-  //   const { updateStatus } = this.props;
-  //   const { updateTableNr } = this.props;
-  //   switch (status) {
-  //     case 'free':
-  //       return (
-  //         <>
-  //           <Button onClick={() => updateStatus(id, 'thinking')}>thinking</Button>
-  //           <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))} >new order</Button>
-  //         </>
-  //       );
-  //     case 'thinking':
-  //       return (
-  //       //   <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
-  //       // );
-  //         <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))}>new order</Button>
-  //       );
-  //     case 'ordered':
-  //       return (
-  //         <Button onClick={() => updateStatus(id, 'prepared')}>prepared</Button>
-  //       );
-  //     case 'prepared':
-  //       return (
-  //         <Button onClick={() => updateStatus(id, 'delivered')}>delivered</Button>
-  //       );
-  //     case 'delivered':
-  //       return (
-  //         <Button onClick={() => updateStatus(id, 'paid')}>paid</Button>
-  //       );
-  //     case 'paid':
-  //       return (
-  //         <Button onClick={() => updateStatus(id, 'free')}>free</Button>
-  //       );
-  //     default:
-  //       return null;
-  //   }
-  // }
+  }
 
   render() {
     const { product } = this.props;
@@ -77,12 +39,17 @@ class WaiterOrderNew extends React.Component {
     const { currentOrder } = this.props;
     const { fetchcurrentOrderNr } = this.props;
     const { currentOrderNr } = this.props;
-
     const { placeOrder } = this.props;
-
+    
     const menuData = Array.from(product);
- 
 
+    const handleChangeTable = (event) => {
+      fetchcurrentOrderNr(event.target.value);
+    };
+
+    const handleChangeOrder = (event) => {
+      fetchcurrentOrder(event.target.value);
+    };
     return (
       <>
         <Paper className={styles.component}>
@@ -90,7 +57,7 @@ class WaiterOrderNew extends React.Component {
             <TableHead>
               <TableRow>
                 <TableCell>Table nr: {typeof tableNr === 'string' ? tableNr : null}</TableCell>
-                <TableCell>Meal chosen</TableCell>
+                <TableCell></TableCell>
                 <TableCell>Number of Meals</TableCell>
                 <TableCell>Price</TableCell>
               </TableRow>
@@ -98,29 +65,38 @@ class WaiterOrderNew extends React.Component {
             <TableBody>
               <TableRow >
                 <TableCell>
-                  <Select
-                    id="select-table"
-                    value=""  >
-                    <span>    </span>
-                    {menuData.map(row => (
-                      <MenuItem key={row.id} onClick={() => fetchcurrentOrder(row.name)}>
-                        {row.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  <FormControl >
+                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="select-table"
+                      // value={e.target.value}
+                      onChange={handleChangeOrder}
+                    >{menuData.map(row => (
+                        <MenuItem key={row.name}  value={row.name}>{row.name}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </TableCell>
                 <TableCell>
-                  {typeof currentOrder === 'string' ? currentOrder : null}
+                  {/* {typeof currentOrder === 'string' ? currentOrder : null} */}
                 </TableCell>
                 <TableCell>
-                  <Select>
-                    <MenuItem onClick={() => fetchcurrentOrderNr('1')}>1</MenuItem>
-                    <MenuItem onClick={() => fetchcurrentOrderNr('2')}>2</MenuItem>
-                    <MenuItem onClick={() => fetchcurrentOrderNr('3')}>3</MenuItem>
-                    <MenuItem onClick={() => fetchcurrentOrderNr('4')}>4</MenuItem>
-                  </Select>
+                  <FormControl >
+                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      // value={value ? value : null}
+                      onChange={handleChangeTable}
+                    >
+                      <MenuItem value={'1'}>1</MenuItem>
+                      <MenuItem value={'2'}>2</MenuItem>
+                      <MenuItem value={'3'}>3</MenuItem>
+                      <MenuItem value={'4'}>4</MenuItem>
+                    </Select>
+                  </FormControl>
                   <span>    </span>
-                  {typeof currentOrderNr === 'string' ? currentOrderNr : null}
                 </TableCell>
                 <TableCell>
                   {menuData.map(item => item.name === currentOrder

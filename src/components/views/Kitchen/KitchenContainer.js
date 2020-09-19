@@ -14,7 +14,6 @@ const mapDispatchToProps = (dispatch) => ({
   // fetchTables: () => dispatch(fetchFromAPI()),
   updateStatusKitchen: (array) => dispatch(updateStateKitchen(array)),
   updateChecked: (bool) => dispatch(updateCheckedState(bool)),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Kitchen);

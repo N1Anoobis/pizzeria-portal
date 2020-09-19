@@ -179,20 +179,15 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
 export const fetchKitchenAPI = () => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-
+   
     Axios
       .get(`${api.url}/${api.order}`)
       .then(res => {
-
         dispatch(fetchKitchen(res.data));
-
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
-
-
-
   };
 };
 
@@ -200,9 +195,6 @@ export const fetchKitchenAPI = () => {
 export const updateStateKitchen = (order) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-
-    // console.log(order)
-
     Axios
       .get(`${api.url}/${api.order}`)
       .then(res => {

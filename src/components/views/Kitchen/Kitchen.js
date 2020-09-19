@@ -11,7 +11,6 @@ import { NavLink } from 'react-router-dom';
 import styles from './Kitchen.module.scss';
 import PropTypes from 'prop-types';
 
-
 class Kitchen extends React.Component {
 
   static propTypes = {
@@ -23,32 +22,19 @@ class Kitchen extends React.Component {
     updateChecked: PropTypes.func,
   }
 
-
   componentDidMount() {
     let { checked } = this.props;
     // let { updateChecked } = this.props;
     const { fetchOrders } = this.props;
     if (checked === false) { fetchOrders(); }
-
-
-    // console.log(this.state.checked);
-    // updateChecked(true);
-    // checked = true;
   }
 
-
-
   render() {
-   
-
     const { newOrder } = this.props;
     const { updateStatusKitchen } = this.props;
     let { newOrderToAdd } = this.props;
     const menuData = Array.from(newOrder);
     let counter = 7;
-    // console.log(this.state.checked);
-
-
     const newOrderObj = {
       id: newOrderToAdd.currentOrder ? menuData.length + 1 : null,
       order: newOrderToAdd.currentOrder ? counter * 4 : null,
@@ -62,15 +48,6 @@ class Kitchen extends React.Component {
     console.log(finalData);
     finalData.splice(-1, 1);
 
-    // this.handleChange = (id) => {
-
-
-
-    //   finalData = finalData.filter(order => order.id !== id);
-
-    //   updateStatusKitchen(finalData);
-    //   console.log(finalData);
-    // };
     return (
       <div className={styles.component}>
         <Paper >
@@ -107,8 +84,6 @@ class Kitchen extends React.Component {
                   <TableCell>
                     {row.amount ? row.amount : null}
                   </TableCell>
-
-
                   <TableCell onChange={e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id)); }}>
                     {row.amount ? <Checkbox defaultunchecked="true" inputProps={{ 'aria-label': 'primary checkbox' }} /> : null}
                   </TableCell>
