@@ -49,7 +49,7 @@ class Kitchen extends React.Component {
 
     counter++;
     let finalData = [...menuData, newOrderObj];
-    // console.log(finalData);
+    console.log(finalData);
     finalData.splice(-1, 1);
 
     return (

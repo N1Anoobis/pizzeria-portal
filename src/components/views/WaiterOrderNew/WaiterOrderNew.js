@@ -28,8 +28,11 @@ class WaiterOrderNew extends React.Component {
   componentDidMount() {
     const { fetchMenu } = this.props;
     fetchMenu();
+  }
 
-
+  state = {
+    valueMeal: '',
+    valueNumber: '',
   }
 
   render() {
@@ -40,7 +43,7 @@ class WaiterOrderNew extends React.Component {
     const { fetchcurrentOrderNr } = this.props;
     const { currentOrderNr } = this.props;
     const { placeOrder } = this.props;
-    
+
     const menuData = Array.from(product);
 
     const handleChangeTable = (event) => {
@@ -70,10 +73,10 @@ class WaiterOrderNew extends React.Component {
                     <Select
                       labelId="demo-simple-select-label"
                       id="select-table"
-                      // value={e.target.value}
+                      value={this.state.valueMeal}
                       onChange={handleChangeOrder}
                     >{menuData.map(row => (
-                        <MenuItem key={row.name}  value={row.name}>{row.name}</MenuItem>
+                        <MenuItem key={row.name} value={row.name}>{row.name}</MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -87,13 +90,13 @@ class WaiterOrderNew extends React.Component {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      // value={value ? value : null}
+                      value={this.state.valueNumber}
                       onChange={handleChangeTable}
                     >
-                      <MenuItem value={'1'}>1</MenuItem>
-                      <MenuItem value={'2'}>2</MenuItem>
-                      <MenuItem value={'3'}>3</MenuItem>
-                      <MenuItem value={'4'}>4</MenuItem>
+                      <MenuItem value={1}>1</MenuItem>
+                      <MenuItem value={2}>2</MenuItem>
+                      <MenuItem value={3}>3</MenuItem>
+                      <MenuItem value={4}>4</MenuItem>
                     </Select>
                   </FormControl>
                   <span>    </span>
@@ -106,7 +109,7 @@ class WaiterOrderNew extends React.Component {
               </TableRow>
             </TableBody>
           </Table>
-          <Button onClick={() => placeOrder(tableNr, currentOrder, currentOrderNr)}>Place Order</Button>
+          <Button onClick={() => placeOrder(parseInt(tableNr), currentOrder, currentOrderNr)}>Place Order</Button>
         </Paper>
       </>
     );
