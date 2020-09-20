@@ -37,6 +37,8 @@ const GET_KITCHEN = createActionName('GET_KITCHEN');
 
 const GET_CHECKED = createActionName('GET_CHECKED');
 
+// const REMOVE_CHECKED = createActionName('REMOVE_CHECKED');
+
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
@@ -57,6 +59,8 @@ export const placeNeewOrder = (tableNr, currentOrder, currentOrderNr) => ({ tabl
 export const fetchKitchen = payload => ({ payload, type: GET_KITCHEN });
 
 export const fetchChecked = payload => ({ payload, type: GET_CHECKED });
+
+// export const RemoveKitchenOrder = payload => ({ payload, type: 'REMOVE_CHECKED' });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -170,10 +174,7 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
       .catch(function (error) {
         console.log(error);
       });
-
-
   };
-
 };
 
 export const fetchKitchenAPI = () => {
@@ -191,31 +192,18 @@ export const fetchKitchenAPI = () => {
   };
 };
 
-
 export const updateStateKitchen = (order) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
     Axios
       .get(`${api.url}/${api.order}`)
+      
       .then(res => {
         dispatch(fetchKitchen(order));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
-
-
-    Axios.delete(`${api.url}/${api.order}`)
-
-      .then(function (response) {
-        
-        console.log(response);
-    
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
   };
 };
 
@@ -234,7 +222,22 @@ export const updateCheckedState = (bool) => {
   };
 };
 
-// updateStateKitchen
+export const removeKitchenOrder = (id) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    
+    Axios.delete(`${api.url}/${api.order}/${id}`)
+
+      .then(function (response) {
+        
+        console.log('delete response',response);
+    
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
 
 
 
@@ -361,6 +364,18 @@ export default function reducer(statePart = [], action = {}) {
         checked: action.payload,
       };
     }
+
+    // case REMOVE_CHECKED: {
+    //   return {
+    //     ...statePart,
+    //     loading: {
+    //       active: false,
+    //       error: false,
+    //     },
+    //     kitchen: action.payload,
+    //   };
+    // }
+    
 
     default:
       return statePart;

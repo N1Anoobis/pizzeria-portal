@@ -20,6 +20,7 @@ class Kitchen extends React.Component {
     newOrderToAdd: PropTypes.any,
     checked: PropTypes.any,
     updateChecked: PropTypes.func,
+    remove: PropTypes.any,
   }
 
   componentDidMount() {
@@ -29,8 +30,11 @@ class Kitchen extends React.Component {
     if (checked === false) { fetchOrders(); }
   }
 
+
+
   render() {
     const { newOrder } = this.props;
+    const { remove } = this.props;
     const { updateStatusKitchen } = this.props;
     let { newOrderToAdd } = this.props;
     const menuData = Array.from(newOrder);
@@ -45,7 +49,7 @@ class Kitchen extends React.Component {
 
     counter++;
     let finalData = [...menuData, newOrderObj];
-    console.log(finalData);
+    // console.log(finalData);
     finalData.splice(-1, 1);
 
     return (
@@ -84,7 +88,7 @@ class Kitchen extends React.Component {
                   <TableCell>
                     {row.amount ? row.amount : null}
                   </TableCell>
-                  <TableCell onChange={e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id)); }}>
+                  <TableCell onChange={ e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id)); remove(row.id);}}>
                     {row.amount ? <Checkbox defaultunchecked="true" inputProps={{ 'aria-label': 'primary checkbox' }} /> : null}
                   </TableCell>
                 </TableRow>
