@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { Link } from 'react-router-dom';
 
 class WaiterOrderNew extends React.Component {
   static propTypes = {
@@ -24,6 +25,8 @@ class WaiterOrderNew extends React.Component {
     fetchcurrentOrder: PropTypes.any,
     fetchcurrentOrderNr: PropTypes.any,
     placeOrder: PropTypes.func,
+    newOrder: PropTypes.any,
+    
   }
   componentDidMount() {
     const { fetchMenu } = this.props;
@@ -127,7 +130,7 @@ class WaiterOrderNew extends React.Component {
               </TableRow>
             </TableBody>
           </Table>
-          <Button onClick={e => { placeOrder(parseInt(tableNr), currentOrder, currentOrderNr); this.resetForm(); }}>Place Order</Button>
+          <Button onClick={e => { placeOrder(parseInt(tableNr), currentOrder, currentOrderNr); this.resetForm(); }} component={Link} to={`${process.env.PUBLIC_URL}/kitchen`}>Place Order</Button>
         </Paper>
       </>
     );

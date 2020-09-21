@@ -21,16 +21,25 @@ class Kitchen extends React.Component {
     checked: PropTypes.any,
     updateChecked: PropTypes.func,
     remove: PropTypes.any,
+    updateWaiter: PropTypes.any,
   }
 
   componentDidMount() {
+    this.forceUpdate();
     let { checked } = this.props;
     // let { updateChecked } = this.props;
     const { fetchOrders } = this.props;
     if (checked === false) { fetchOrders(); }
   }
 
-
+  componentWillUnmount() {
+    let { newOrder } = this.props;
+    console.log(newOrder);
+    if (newOrder.length > 0) {
+      const index = newOrder.length - 1;
+      this.props.updateWaiter(newOrder[index].tableNumber, 'ordered', newOrder[index].order);
+    }
+  }
 
   render() {
     const { newOrder } = this.props;
@@ -49,9 +58,9 @@ class Kitchen extends React.Component {
 
     counter++;
     let finalData = [...menuData, newOrderObj];
-    console.log(finalData);
+   
     finalData.splice(-1, 1);
-
+    console.log(finalData);
     return (
       <div className={styles.component}>
         <Paper >

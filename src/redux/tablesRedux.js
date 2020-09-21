@@ -180,7 +180,7 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
 export const fetchKitchenAPI = () => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-   
+
     Axios
       .get(`${api.url}/${api.order}`)
       .then(res => {
@@ -197,7 +197,7 @@ export const updateStateKitchen = (order) => {
     dispatch(fetchStarted());
     Axios
       .get(`${api.url}/${api.order}`)
-      
+
       .then(res => {
         dispatch(fetchKitchen(order));
       })
@@ -225,13 +225,13 @@ export const updateCheckedState = (bool) => {
 export const removeKitchenOrder = (id) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    
+
     Axios.delete(`${api.url}/${api.order}/${id}`)
 
       .then(function (response) {
-        
-        console.log('delete response',response);
-    
+
+        console.log('delete response', response);
+
       })
       .catch(function (error) {
         console.log(error);
@@ -239,16 +239,16 @@ export const removeKitchenOrder = (id) => {
   };
 };
 
-export const updateWaiterPage = (id,status) => {
+export const updateWaiterPage = (id, status, order) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    
-    Axios.put(`${api.url}/${api.tables}/${id}`, {  'status': status })
+
+    Axios.put(`${api.url}/${api.tables}/${id}`, { 'status': status, 'order': order })
 
       .then(function (response) {
-        
-        console.log('put response',response);
-    
+
+        console.log('put response', response);
+
       })
       .catch(function (error) {
         console.log(error);
@@ -391,7 +391,7 @@ export default function reducer(statePart = [], action = {}) {
     //     kitchen: action.payload,
     //   };
     // }
-    
+
 
     default:
       return statePart;

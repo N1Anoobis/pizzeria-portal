@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Waiter extends React.Component {
   static propTypes = {
@@ -16,51 +16,52 @@ class Waiter extends React.Component {
     tables: PropTypes.any,
     updateTableNr: PropTypes.func,
     updateStatus: PropTypes.func,
-    updateWaiter:PropTypes.func,
+    updateWaiter: PropTypes.func,
+    newOrder: PropTypes.any,
     loading: PropTypes.shape({
       active: PropTypes.bool,
-      error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+      error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     }),
   }
-  
-  componentDidMount(){
-    const { fetchTables} = this.props;
+
+  componentDidMount() {
+    this.forceUpdate();
+    const { fetchTables } = this.props;
     fetchTables();
   }
 
-  renderActions( id, status){
+  renderActions(id, status) {
     const { updateStatus } = this.props;
     const { updateTableNr } = this.props;
-    const { updateWaiter} = this.props;
+    const { updateWaiter } = this.props;
     switch (status) {
       case 'free':
         return (
           <>
-            <Button onClick={() => {updateStatus(id, 'thinking');updateWaiter(id, 'thinking');}}>thinking</Button>
-            <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> {(updateTableNr(id));}} >new order</Button>
+            <Button onClick={() => { updateStatus(id, 'thinking'); updateWaiter(id, 'thinking', ''); }}>thinking</Button>
+            <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={() => { (updateTableNr(id)); }} >new order</Button>
           </>
         );
       case 'thinking':
         return (
-        //   <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
-        // );
-          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> {(updateTableNr(id));}}>new order</Button>
+
+          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={() => { (updateTableNr(id)); }}>new order</Button>
         );
       case 'ordered':
         return (
-          <Button onClick={() => {updateStatus(id, 'prepared');updateWaiter(id, 'prepared');}}>prepared</Button>
+          <Button onClick={() => { updateStatus(id, 'prepared'); updateWaiter(id, 'prepared'); }}>prepared</Button>
         );
       case 'prepared':
         return (
-          <Button onClick={() => {updateStatus(id, 'delivered');updateWaiter(id, 'delivered');}}>delivered</Button>
+          <Button onClick={() => { updateStatus(id, 'delivered'); updateWaiter(id, 'delivered'); }}>delivered</Button>
         );
       case 'delivered':
         return (
-          <Button onClick={() => {updateStatus(id, 'paid');updateWaiter(id, 'paid');}}>paid</Button>
+          <Button onClick={() => { updateStatus(id, 'paid'); updateWaiter(id, 'paid'); }}>paid</Button>
         );
       case 'paid':
         return (
-          <Button onClick={() => {updateStatus(id, 'free');updateWaiter(id, 'free');}}>free</Button>
+          <Button onClick={() => { updateStatus(id, 'free'); updateWaiter(id, 'free'); }}>free</Button>
         );
       default:
         return null;
@@ -68,15 +69,15 @@ class Waiter extends React.Component {
   }
 
   render() {
-    const { loading: { active, error }, tables} = this.props;
-    // console.log(tables);
-    if(active || !tables.length){
+    const { loading: { active, error }, tables } = this.props;
+    console.log(tables);
+    if (active || !tables.length) {
       return (
         <Paper className={styles.component}>
           <p>Loading...</p>
         </Paper>
       );
-    } else if(error) {
+    } else if (error) {
       return (
         <Paper className={styles.component}>
           <p>Error! Details:</p>
@@ -105,7 +106,7 @@ class Waiter extends React.Component {
                     {row.status}
                   </TableCell>
                   <TableCell>
-                    {row.status=== 'free'? null: (
+                    {row.status === 'free' ? null : (
                       <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
                         {row.order}
                       </Button>
