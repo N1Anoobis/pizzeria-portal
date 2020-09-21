@@ -35,6 +35,15 @@ class WaiterOrderNew extends React.Component {
     valueNumber: '',
   }
 
+  resetForm() {
+    this.setState(prevState => ({
+      valueNumber: '',
+    }));
+    this.setState(prevState => ({
+      valueMeal: '',
+    }));
+  }
+
   render() {
     const { product } = this.props;
     const { tableNr } = this.props;
@@ -47,11 +56,18 @@ class WaiterOrderNew extends React.Component {
     const menuData = Array.from(product);
 
     const handleChangeTable = (event) => {
+      this.setState(prevState => ({
+        valueNumber: event.target.value,
+      }));
       fetchcurrentOrderNr(event.target.value);
     };
 
     const handleChangeOrder = (event) => {
+      this.setState(prevState => ({
+        valueMeal: event.target.value,
+      }));
       fetchcurrentOrder(event.target.value);
+
     };
     return (
       <>
@@ -101,15 +117,17 @@ class WaiterOrderNew extends React.Component {
                   </FormControl>
                   <span>    </span>
                 </TableCell>
-                <TableCell>
-                  {menuData.map(item => item.name === currentOrder
+                <TableCell
+                //  value={this.state.price}
+                >
+                  {this.state.valueNumber ? menuData.map(item => item.name === currentOrder
                     ? (isNaN(item.price * currentOrderNr) ? null : item.price * currentOrderNr)
-                    : null)}
+                    : null) : ''}
                 </TableCell>
               </TableRow>
             </TableBody>
           </Table>
-          <Button onClick={() => placeOrder(parseInt(tableNr), currentOrder, currentOrderNr)}>Place Order</Button>
+          <Button onClick={e => { placeOrder(parseInt(tableNr), currentOrder, currentOrderNr); this.resetForm(); }}>Place Order</Button>
         </Paper>
       </>
     );
