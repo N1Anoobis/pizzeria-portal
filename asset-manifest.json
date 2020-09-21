@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/pizzeria-portal/static/css/main.7e47a19a.chunk.css",
+    "main.js": "/pizzeria-portal/static/js/main.83b8af78.chunk.js",
+    "main.js.map": "/pizzeria-portal/static/js/main.83b8af78.chunk.js.map",
+    "runtime-main.js": "/pizzeria-portal/static/js/runtime-main.1c28856c.js",
+    "runtime-main.js.map": "/pizzeria-portal/static/js/runtime-main.1c28856c.js.map",
+    "static/js/2.2815a2a5.chunk.js": "/pizzeria-portal/static/js/2.2815a2a5.chunk.js",
+    "static/js/2.2815a2a5.chunk.js.map": "/pizzeria-portal/static/js/2.2815a2a5.chunk.js.map",
+    "index.html": "/pizzeria-portal/index.html",
+    "precache-manifest.24aa7d2718c19cb3921f47111c1b27e0.js": "/pizzeria-portal/precache-manifest.24aa7d2718c19cb3921f47111c1b27e0.js",
+    "service-worker.js": "/pizzeria-portal/service-worker.js",
+    "static/css/main.7e47a19a.chunk.css.map": "/pizzeria-portal/static/css/main.7e47a19a.chunk.css.map",
+    "static/js/2.2815a2a5.chunk.js.LICENSE.txt": "/pizzeria-portal/static/js/2.2815a2a5.chunk.js.LICENSE.txt",
+    "static/media/res.jpg": "/pizzeria-portal/static/media/res.085b8be9.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1c28856c.js",
+    "static/js/2.2815a2a5.chunk.js",
+    "static/css/main.7e47a19a.chunk.css",
+    "static/js/main.83b8af78.chunk.js"
+  ]
+}
