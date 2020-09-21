@@ -27,7 +27,58 @@ class Waiter extends React.Component {
   componentDidMount() {
     this.forceUpdate();
     const { fetchTables } = this.props;
+    const { newOrder } = this.props;
+    const { tables } = this.props;
     fetchTables();
+    // console.log('newOrder', newOrder);
+
+
+    let tablezArray = [];
+
+
+
+    const ordersArray = [];
+    // if (newOrder.length !== tables.length) {
+    for (const key in tables) {
+      
+      if (Object.prototype.hasOwnProperty.call(tables, key)) {
+        const element = tables[key];
+        // console.log(element['order']);
+
+        if (element['order']) {
+          tablezArray.push(parseInt(element['id']));
+        }
+
+
+      }
+
+    }
+    // console.log(tablezArray);
+    for (const key in newOrder) {
+      if (Object.prototype.hasOwnProperty.call(tables, key)) {
+        const element = newOrder[key];
+
+        ordersArray.push(element['tableNumber']);
+
+      }
+    }
+
+    // tablezArray = ordersArray.filter(val => !ordersArray.includes(val));
+    // console.log(ordersArray);
+
+    tablezArray = tablezArray.filter(val => !ordersArray.includes(val));
+    console.log(tablezArray);
+    if (tablezArray > 0) {
+      this.informWaiter = tablezArray;
+      // console.log(this.informWaiter)
+    }
+
+  }
+
+
+
+  resetWaiterInfo(){
+    this.informWaiter = null;
   }
 
   renderActions(id, status) {
@@ -61,7 +112,7 @@ class Waiter extends React.Component {
         );
       case 'paid':
         return (
-          <Button onClick={() => { updateStatus(id, 'free'); updateWaiter(id, 'free'); }}>free</Button>
+          <Button onClick={() => { updateStatus(id, 'free'); updateWaiter(id, 'free'); this.resetWaiterInfo();}}>free</Button>
         );
       default:
         return null;
@@ -70,7 +121,7 @@ class Waiter extends React.Component {
 
   render() {
     const { loading: { active, error }, tables } = this.props;
-    console.log(tables);
+
     if (active || !tables.length) {
       return (
         <Paper className={styles.component}>
@@ -105,7 +156,7 @@ class Waiter extends React.Component {
                   <TableCell>
                     {row.status}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={this.informWaiter ? styles.ready : null}  >
                     {row.status === 'free' ? null : (
                       <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
                         {row.order}
@@ -119,6 +170,7 @@ class Waiter extends React.Component {
               ))}
             </TableBody>
           </Table>
+          {this.informWaiter ? <h1>Table {this.informWaiter} meals are ready</h1> : null}
         </Paper>
       );
     }

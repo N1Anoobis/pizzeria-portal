@@ -34,7 +34,7 @@ class Kitchen extends React.Component {
 
   componentWillUnmount() {
     let { newOrder } = this.props;
-    console.log(newOrder);
+    // console.log(newOrder);
     if (newOrder.length > 0) {
       const index = newOrder.length - 1;
       this.props.updateWaiter(newOrder[index].tableNumber, 'ordered', newOrder[index].order);
@@ -60,7 +60,7 @@ class Kitchen extends React.Component {
     let finalData = [...menuData, newOrderObj];
    
     finalData.splice(-1, 1);
-    console.log(finalData);
+    // console.log(finalData);
     return (
       <div className={styles.component}>
         <Paper >
