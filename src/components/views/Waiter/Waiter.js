@@ -16,6 +16,7 @@ class Waiter extends React.Component {
     tables: PropTypes.any,
     updateTableNr: PropTypes.func,
     updateStatus: PropTypes.func,
+    updateWaiter:PropTypes.func,
     loading: PropTypes.shape({
       active: PropTypes.bool,
       error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
@@ -30,35 +31,36 @@ class Waiter extends React.Component {
   renderActions( id, status){
     const { updateStatus } = this.props;
     const { updateTableNr } = this.props;
+    const { updateWaiter} = this.props;
     switch (status) {
       case 'free':
         return (
           <>
-            <Button onClick={() => updateStatus(id, 'thinking')}>thinking</Button>
-            <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))} >new order</Button>
+            <Button onClick={() => {updateStatus(id, 'thinking');updateWaiter(id, 'thinking');}}>thinking</Button>
+            <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> {(updateTableNr(id));}} >new order</Button>
           </>
         );
       case 'thinking':
         return (
         //   <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
         // );
-          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> (updateTableNr(id))}>new order</Button>
+          <Button component={Link} to={`${process.env.PUBLIC_URL}/waiter/order/new`} onClick={()=> {(updateTableNr(id));}}>new order</Button>
         );
       case 'ordered':
         return (
-          <Button onClick={() => updateStatus(id, 'prepared')}>prepared</Button>
+          <Button onClick={() => {updateStatus(id, 'prepared');updateWaiter(id, 'prepared');}}>prepared</Button>
         );
       case 'prepared':
         return (
-          <Button onClick={() => updateStatus(id, 'delivered')}>delivered</Button>
+          <Button onClick={() => {updateStatus(id, 'delivered');updateWaiter(id, 'delivered');}}>delivered</Button>
         );
       case 'delivered':
         return (
-          <Button onClick={() => updateStatus(id, 'paid')}>paid</Button>
+          <Button onClick={() => {updateStatus(id, 'paid');updateWaiter(id, 'paid');}}>paid</Button>
         );
       case 'paid':
         return (
-          <Button onClick={() => updateStatus(id, 'free')}>free</Button>
+          <Button onClick={() => {updateStatus(id, 'free');updateWaiter(id, 'free');}}>free</Button>
         );
       default:
         return null;

@@ -239,6 +239,22 @@ export const removeKitchenOrder = (id) => {
   };
 };
 
+export const updateWaiterPage = (id,status) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    
+    Axios.put(`${api.url}/${api.tables}/${id}`, {  'status': status })
+
+      .then(function (response) {
+        
+        console.log('put response',response);
+    
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
 
 
 /* reducer */
