@@ -2,7 +2,7 @@
 	"name": "pizzeria-portal",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "/panel/",
+	"homepage": "https://n1anoobis.github.io/pizzeria-portal/",
 	"dependencies": {
 		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
@@ -37,7 +37,9 @@
 		"test": "react-scripts test --noStackTrace",
 		"test-all": "react-scripts test --watchAll=false --noStackTrace",
 		"test-related": "react-scripts test --watchAll=false --noStackTrace --findRelatedTests",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"predeploy": "yarn build",
+		"deploy": "gh-pages -d build"
 	},
 	"husky": {
 		"hooks": {
