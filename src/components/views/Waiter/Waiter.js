@@ -30,52 +30,32 @@ class Waiter extends React.Component {
     const { newOrder } = this.props;
     const { tables } = this.props;
     fetchTables();
-    // console.log('newOrder', newOrder);
-
 
     let tablezArray = [];
-
-
-
     const ordersArray = [];
-    // if (newOrder.length !== tables.length) {
+
     for (const key in tables) {
-      
       if (Object.prototype.hasOwnProperty.call(tables, key)) {
         const element = tables[key];
-        // console.log(element['order']);
-
         if (element['order']) {
           tablezArray.push(parseInt(element['id']));
         }
-
-
       }
-
     }
-    // console.log(tablezArray);
+
     for (const key in newOrder) {
       if (Object.prototype.hasOwnProperty.call(tables, key)) {
         const element = newOrder[key];
-
         ordersArray.push(element['tableNumber']);
-
       }
     }
-
-    // tablezArray = ordersArray.filter(val => !ordersArray.includes(val));
-    // console.log(ordersArray);
 
     tablezArray = tablezArray.filter(val => !ordersArray.includes(val));
     console.log(tablezArray);
     if (tablezArray > 0) {
       this.informWaiter = tablezArray;
-      // console.log(this.informWaiter)
     }
-
   }
-
-
 
   resetWaiterInfo(){
     this.informWaiter = null;

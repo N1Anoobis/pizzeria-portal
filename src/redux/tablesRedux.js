@@ -37,8 +37,6 @@ const GET_KITCHEN = createActionName('GET_KITCHEN');
 
 const GET_CHECKED = createActionName('GET_CHECKED');
 
-// const REMOVE_CHECKED = createActionName('REMOVE_CHECKED');
-
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
@@ -59,8 +57,6 @@ export const placeNeewOrder = (tableNr, currentOrder, currentOrderNr) => ({ tabl
 export const fetchKitchen = payload => ({ payload, type: GET_KITCHEN });
 
 export const fetchChecked = payload => ({ payload, type: GET_CHECKED });
-
-// export const RemoveKitchenOrder = payload => ({ payload, type: 'REMOVE_CHECKED' });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -164,7 +160,7 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
       .catch(err => {
         dispatch(fetchError(err.message || true));
       });
-    //tu zmienilem z newOrd na order
+
     Axios.post(`${api.url}/${api.order}`, { 'id': '', 'order': Math.floor(Math.random() * (999 - 1 + 1) + 1), 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
       .then(function (response) {
 
@@ -255,7 +251,6 @@ export const updateWaiterPage = (id, status, order) => {
       });
   };
 };
-
 
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
@@ -380,18 +375,6 @@ export default function reducer(statePart = [], action = {}) {
         checked: action.payload,
       };
     }
-
-    // case REMOVE_CHECKED: {
-    //   return {
-    //     ...statePart,
-    //     loading: {
-    //       active: false,
-    //       error: false,
-    //     },
-    //     kitchen: action.payload,
-    //   };
-    // }
-
 
     default:
       return statePart;
