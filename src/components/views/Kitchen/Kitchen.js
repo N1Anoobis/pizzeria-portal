@@ -22,6 +22,7 @@ class Kitchen extends React.Component {
     updateChecked: PropTypes.func,
     remove: PropTypes.any,
     updateWaiter: PropTypes.any,
+    updateStatus: PropTypes.any,
   }
 
   componentDidMount() {
@@ -94,7 +95,7 @@ class Kitchen extends React.Component {
                   <TableCell>
                     {row.amount ? row.amount : null}
                   </TableCell>
-                  <TableCell onChange={ e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id)); remove(row.id);}}>
+                  <TableCell onChange={ e => { updateStatusKitchen(finalData.filter(order => order.id !== row.id));this.props.updateWaiter(row.tableNumber, 'ready', row.order); remove(row.id);} }>
                     {row.amount ? <Checkbox defaultunchecked="true" inputProps={{ 'aria-label': 'primary checkbox' }} /> : null}
                   </TableCell>
                 </TableRow>

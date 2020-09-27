@@ -27,38 +27,46 @@ class Waiter extends React.Component {
   componentDidMount() {
     this.forceUpdate();
     const { fetchTables } = this.props;
-    const { newOrder } = this.props;
-    const { tables } = this.props;
+    // const { newOrder } = this.props;
+    // const { tables } = this.props;
     fetchTables();
+    // this.tablezArray = [];
+    // const ordersArray = [];
+    
+    // for (const key in tables) {
+    //   if (Object.prototype.hasOwnProperty.call(tables, key)) {
+    //     const element = tables[key];
+    //     if (element['order']) {
+    //       this.tablezArray.push(parseInt(element['id']));
 
-    let tablezArray = [];
-    const ordersArray = [];
+    //     }
+    //   }
+    // }
+  
+    // console.log('tables', tables);
+    // for (const key in newOrder) {
+    //   if (Object.prototype.hasOwnProperty.call(tables, key)) {
+    //     const element = newOrder[key];
+    //     ordersArray.push(element['tableNumber']);
+    //   }
+    // }
+    // // console.log('ordersarray',ordersArray);
+    // this.tablezArray = this.tablezArray.filter(val => !ordersArray.includes(val));
 
-    for (const key in tables) {
-      if (Object.prototype.hasOwnProperty.call(tables, key)) {
-        const element = tables[key];
-        if (element['order']) {
-          tablezArray.push(parseInt(element['id']));
-        }
-      }
-    }
+    // if (this.tablezArray.length > 0) {
+    //   this.informWaiter = this.tablezArray;
 
-    for (const key in newOrder) {
-      if (Object.prototype.hasOwnProperty.call(tables, key)) {
-        const element = newOrder[key];
-        ordersArray.push(element['tableNumber']);
-      }
-    }
-
-    tablezArray = tablezArray.filter(val => !ordersArray.includes(val));
-    console.log(tablezArray);
-    if (tablezArray > 0) {
-      this.informWaiter = tablezArray;
-    }
+    // }
   }
+  componentDidUpdate() {
+    // this.informWaiter = '';
+  }
+  resetWaiterInfo() {
+    this.informWaiter = '';
+    console.log('opalone reset');
 
-  resetWaiterInfo(){
-    this.informWaiter = null;
+    this.tablezArray = '';
+    this.forceUpdate();
   }
 
   renderActions(id, status) {
@@ -80,19 +88,19 @@ class Waiter extends React.Component {
         );
       case 'ordered':
         return (
-          <Button onClick={() => { updateStatus(id, 'prepared'); updateWaiter(id, 'prepared'); }}>prepared</Button>
+          <Button onClick={() => { updateStatus(id, 'waiting'); updateWaiter(id, 'waiting'); }}>preapering</Button>
         );
-      case 'prepared':
+      case 'waiting':
         return (
-          <Button onClick={() => { updateStatus(id, 'delivered'); updateWaiter(id, 'delivered'); }}>delivered</Button>
+          <Button onClick={() => { updateStatus(id, 'ready'); updateWaiter(id, 'ready'); }}>delivered</Button>
         );
-      case 'delivered':
+      case 'ready':
         return (
           <Button onClick={() => { updateStatus(id, 'paid'); updateWaiter(id, 'paid'); }}>paid</Button>
         );
       case 'paid':
         return (
-          <Button onClick={() => { updateStatus(id, 'free'); updateWaiter(id, 'free'); this.resetWaiterInfo();}}>free</Button>
+          <Button onClick={() => { updateStatus(id, 'free'); updateWaiter(id, 'free'); this.resetWaiterInfo(); }}>free</Button>
         );
       default:
         return null;
@@ -136,7 +144,7 @@ class Waiter extends React.Component {
                   <TableCell>
                     {row.status}
                   </TableCell>
-                  <TableCell className={this.informWaiter ? styles.ready : null}  >
+                  <TableCell className={row.status === 'ready' ? styles.ready : null}  >
                     {row.status === 'free' ? null : (
                       <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
                         {row.order}
@@ -150,7 +158,7 @@ class Waiter extends React.Component {
               ))}
             </TableBody>
           </Table>
-          {this.informWaiter ? <h1>Table {this.informWaiter} meals are ready</h1> : null}
+          {/* {row.order ? <h1>Table {this.informWaiter} meals are ready</h1> : null} */}
         </Paper>
       );
     }
