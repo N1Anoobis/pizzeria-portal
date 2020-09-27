@@ -12,7 +12,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-// import { Link } from 'react-router-dom';
 
 class WaiterOrderNew extends React.Component {
   static propTypes = {
@@ -101,7 +100,6 @@ class WaiterOrderNew extends React.Component {
                   </FormControl>
                 </TableCell>
                 <TableCell>
-                  {/* {typeof currentOrder === 'string' ? currentOrder : null} */}
                 </TableCell>
                 <TableCell>
                   <FormControl >
@@ -121,7 +119,6 @@ class WaiterOrderNew extends React.Component {
                   <span>    </span>
                 </TableCell>
                 <TableCell
-                //  value={this.state.price}
                 >
                   {this.state.valueNumber ? menuData.map(item => item.name === currentOrder
                     ? (isNaN(item.price * currentOrderNr) ? null : item.price * currentOrderNr)
@@ -130,7 +127,7 @@ class WaiterOrderNew extends React.Component {
               </TableRow>
             </TableBody>
           </Table>
-          <Button onClick={e => { placeOrder(parseInt(tableNr), currentOrder, currentOrderNr); this.resetForm(); }} >Place Order</Button>
+          <Button  onClick={e => { placeOrder(parseInt(tableNr), currentOrder, currentOrderNr); this.resetForm(); }} >Place Order</Button>
         </Paper>
       </>
     );

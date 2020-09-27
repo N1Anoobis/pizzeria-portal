@@ -27,45 +27,10 @@ class Waiter extends React.Component {
   componentDidMount() {
     this.forceUpdate();
     const { fetchTables } = this.props;
-    // const { newOrder } = this.props;
-    // const { tables } = this.props;
     fetchTables();
-    // this.tablezArray = [];
-    // const ordersArray = [];
-    
-    // for (const key in tables) {
-    //   if (Object.prototype.hasOwnProperty.call(tables, key)) {
-    //     const element = tables[key];
-    //     if (element['order']) {
-    //       this.tablezArray.push(parseInt(element['id']));
-
-    //     }
-    //   }
-    // }
-  
-    // console.log('tables', tables);
-    // for (const key in newOrder) {
-    //   if (Object.prototype.hasOwnProperty.call(tables, key)) {
-    //     const element = newOrder[key];
-    //     ordersArray.push(element['tableNumber']);
-    //   }
-    // }
-    // // console.log('ordersarray',ordersArray);
-    // this.tablezArray = this.tablezArray.filter(val => !ordersArray.includes(val));
-
-    // if (this.tablezArray.length > 0) {
-    //   this.informWaiter = this.tablezArray;
-
-    // }
   }
-  componentDidUpdate() {
-    // this.informWaiter = '';
-  }
+
   resetWaiterInfo() {
-    this.informWaiter = '';
-    console.log('opalone reset');
-
-    this.tablezArray = '';
     this.forceUpdate();
   }
 
@@ -158,7 +123,6 @@ class Waiter extends React.Component {
               ))}
             </TableBody>
           </Table>
-          {/* {row.order ? <h1>Table {this.informWaiter} meals are ready</h1> : null} */}
         </Paper>
       );
     }

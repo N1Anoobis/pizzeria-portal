@@ -19,7 +19,6 @@ class Kitchen extends React.Component {
     newOrder: PropTypes.any,
     newOrderToAdd: PropTypes.any,
     checked: PropTypes.any,
-    updateChecked: PropTypes.func,
     remove: PropTypes.any,
     updateWaiter: PropTypes.any,
     updateStatus: PropTypes.any,

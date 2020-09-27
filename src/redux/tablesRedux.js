@@ -152,15 +152,6 @@ export const placeOrderApi = (tableNr, currentOrder, currentOrderNr) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
 
-    // Axios
-    //   .get(`${api.url}/${api.order}`)
-    //   .then(() => {
-    //     dispatch(placeNeewOrder(tableNr, currentOrder, currentOrderNr));
-    //   })
-    //   .catch(err => {
-    //     dispatch(fetchError(err.message || true));
-    //   });
-
     Axios.post(`${api.url}/${api.order}`, { 'id': '', 'order': Math.floor(Math.random() * (999 - 1 + 1) + 1), 'meals': currentOrder, 'amount': currentOrderNr, 'tableNumber': tableNr })
       .then(function (response) {
 
@@ -240,13 +231,9 @@ export const updateWaiterPage = (id, status, order) => {
     dispatch(fetchStarted());
 
     Axios.put(`${api.url}/${api.tables}/${id}`, { 'status': status, 'order': order })
-    // .then(() => {
-    //   dispatch(updateStatus(id, status));
-    // })
+  
       .then(function (response) {
-        // dispatch(getState);
         console.log('put response update status', response);
-
       })
       
       .catch(function (error) {
