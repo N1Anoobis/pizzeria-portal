@@ -105,5 +105,6 @@ class Kitchen extends React.Component {
       </div>);
   }
 }
+
 export default Kitchen;
 
