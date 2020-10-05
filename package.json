@@ -28,7 +28,7 @@
 		"redux-thunk": "^2.3.0"
 	},
 	"scripts": {
-		"start" : "yarn build && node server.js",
+		"start" : "run-p start:* && yarn build && node server.js",
 		"start-silent": "run-p start > /dev/null",
 		"start:react": "react-scripts start",
 		"start:api": "yarn build && node server.js",
